@@ -123,7 +123,7 @@ export default function AppView() {
           />
         </Grid>
 
-        <Grid xs={12} md={12} lg={12}>
+        <Grid xs={6} md={6} lg={6}>
           <SwitchMode />
         </Grid>
 
