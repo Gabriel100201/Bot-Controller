@@ -6,16 +6,16 @@ import Typography from '@mui/material/Typography';
 
 /* import Iconify from 'src/components/iconify'; */
 
+/* import AppTasks from '../app-tasks'; */
+/* import AppNewsUpdate from '../app-news-update'; */
 import { SwitchMode } from '../app-switch-mode';
 import AppOrderTimeline from '../app-order-timeline';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
-/* import AppTasks from '../app-tasks'; */
-/* import AppNewsUpdate from '../app-news-update'; */
-/* import AppCurrentVisits from '../app-current-visits'; */
-/* import AppTrafficBySite from '../app-traffic-by-site'; */
-/* import AppCurrentSubject from '../app-current-subject'; */
-/* import AppConversionRates from '../app-conversion-rates'; */
+/* import AppCurrentVisits from '../app-current-visits';
+import AppTrafficBySite from '../app-traffic-by-site';
+import AppCurrentSubject from '../app-current-subject';
+import AppConversionRates from '../app-conversion-rates'; */
 
 // ----------------------------------------------------------------------
 
@@ -123,7 +123,7 @@ export default function AppView() {
           />
         </Grid>
 
-        <Grid xs={6} md={6} lg={6}>
+        <Grid xs={12} md={12} lg={3}>
           <SwitchMode />
         </Grid>
 
@@ -139,9 +139,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={6} lg={8}>
           <AppConversionRates
             title="Conversion Rates"
             subheader="(+43%) than last year"
@@ -160,9 +160,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
+        <Grid xs={12} md={6} lg={4}>
           <AppCurrentSubject
             title="Current Subject"
             chart={{
@@ -174,9 +174,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={6} lg={8}>
           <AppNewsUpdate
             title="News Update"
             list={[...Array(5)].map((_, index) => ({
@@ -187,9 +187,9 @@ export default function AppView() {
               postedAt: faker.date.recent(),
             }))}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
+        <Grid xs={12} md={6} lg={4}>
           <AppTrafficBySite
             title="Traffic by Site"
             list={[
@@ -215,9 +215,9 @@ export default function AppView() {
               },
             ]}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={8}>
+        <Grid xs={12} md={6} lg={8}>
           <AppTasks
             title="Tasks"
             list={[
