@@ -23,7 +23,7 @@ const Logo = forwardRef(({ disabledLink = false, sx, ...other }, ref) => {
       }}
       {...other}
     >
-      <img style={{ "bordeRadius": "100%" }} src="/assets/icons/TechnodevsRedeslogo.png" alt="" />
+      <img style={{ borderRadius: "100%" }} src="/assets/icons/TechnodevsRedeslogo.png" alt="Logo de technodevs" />
     </Box>
   );
 
