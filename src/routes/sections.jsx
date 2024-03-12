@@ -3,6 +3,8 @@ import { Outlet, Navigate, useRoutes } from 'react-router-dom';
 
 import DashboardLayout from 'src/layouts/dashboard';
 
+import { ProtectedView } from './components/ProtectedView';
+
 export const IndexPage = lazy(() => import('src/pages/app'));
 export const BlogPage = lazy(() => import('src/pages/blog'));
 export const UserPage = lazy(() => import('src/pages/user'));
@@ -16,11 +18,13 @@ export default function Router() {
   const routes = useRoutes([
     {
       element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
+          <ProtectedView>
+            <DashboardLayout>
+              <Suspense>
+                <Outlet />
+              </Suspense>
+            </DashboardLayout>
+          </ProtectedView>
       ),
       children: [
         { element: <IndexPage />, index: true },
