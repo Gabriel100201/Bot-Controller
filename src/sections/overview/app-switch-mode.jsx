@@ -2,12 +2,17 @@ import { useState } from "react"
 
 import { Switch } from "@mui/material"
 
+import useAuth from "src/hooks/useAuth"
+
 // eslint-disable-next-line arrow-body-style
 export const SwitchMode = () => {
   const [isOnline, setOnline] = useState(true)
+  const { validateToken } = useAuth()
 
-  const hanldeOnline = () => {
-    setOnline(!isOnline)
+  const hanldeOnline = async () => {
+    if (await validateToken()) {
+      setOnline(!isOnline)
+    }
   }
 
   return (

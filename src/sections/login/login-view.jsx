@@ -25,25 +25,27 @@ import Iconify from 'src/components/iconify';
 
 export default function LoginView() {
   const theme = useTheme();
-
-  /*   const router = useRouter(); */
-
   const [showPassword, setShowPassword] = useState(false);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
   const { login } = useAuth();
 
   const handleClick = () => {
-    login("usuario1", "43280743")
+    login(email, password);
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Dirección de Correo" />
+        <TextField name="email" label="Dirección de Correo" value={email} onChange={(e) => setEmail(e.target.value)} />
 
         <TextField
           name="password"
           label="Contraseña"
           type={showPassword ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">
