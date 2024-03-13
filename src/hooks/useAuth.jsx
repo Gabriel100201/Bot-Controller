@@ -1,13 +1,11 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useState, useContext, useCallback } from 'react';
+import { useContext, useCallback } from 'react';
 
 import { LoginContext } from 'src/context/LoginContext';
 
 const useAuth = () => {
-  const [token, setToken] = useState(localStorage.getItem('token') || null);
-  const { setLogged, infoLogged } = useContext(LoginContext);
+  const { setLogged, infoLogged, setUnLogged } = useContext(LoginContext);
   const navigate = useNavigate();
 
   const validateToken = async () => {
@@ -34,23 +32,19 @@ const useAuth = () => {
         username,
         password,
       });
-      // eslint-disable-next-line no-shadow
-      const { token } = response.data;
-      setToken(token);
-      setLogged(token)
+      const { token, dockerId } = response.data;
+      setLogged(token, dockerId)
       navigate("/")
     } catch (error) {
       console.error('Error de inicio de sesión:', error.message);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [setLogged, navigate]);
 
   const logout = useCallback(() => {
-    setToken(null);
-    localStorage.removeItem('token');
-  }, []);
+    setUnLogged()
+  }, [setUnLogged]);
 
-  return { token, login, logout, validateToken };
+  return { login, logout, validateToken };
 };
 
 export default useAuth;
