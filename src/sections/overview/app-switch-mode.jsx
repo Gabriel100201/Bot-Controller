@@ -9,9 +9,10 @@ import { LoginContext } from "src/context/LoginContext"
 
 // eslint-disable-next-line arrow-body-style
 export const SwitchMode = () => {
-  const [isOnline, setOnline] = useState(true)
+  const [isOnline, setOnline] = useState(false)
   const { validateToken } = useAuth()
   const { dockerId, infoLogged } = useContext(LoginContext)
+  const [containerId, setContainerId] = useState(null)
 
   const config = {
     headers: {
@@ -20,11 +21,14 @@ export const SwitchMode = () => {
   };
 
   const hanldeOnline = async () => {
-    const route = isOnline ? "stop" : "start";
+    const route = isOnline ? `http://localhost:3000/containers/${containerId}/stop` : `http://localhost:3000/containers/${dockerId}/start`;
     if (await validateToken()) {
-      setOnline(!isOnline)
-      axios.post(`http://localhost:3000/containers/${dockerId}/${route}`, null, config)
-        .then((res) => console.log(res))
+      axios.post(route, null, config)
+        .then((res) => {
+          console.log(res.data.containerId)
+          setContainerId(res.data.containerId)
+          setOnline(!isOnline)
+        })
         .catch((err) => console.log(err))
     }
   }
