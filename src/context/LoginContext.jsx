@@ -4,38 +4,38 @@ export const LoginContext = createContext();
 
 // eslint-disable-next-line react/prop-types
 export const LoginProvider = ({ children }) => {
+  // Obtension de valores almacenados en la base de datos
   const [isLogged, setIsLogged] = useState(
     localStorage.getItem("isLogged") || false
   );
-  const [infoLogged, setInfoLogged] = useState(
-    localStorage.getItem("token") || null
+  const [infoUser, setInfoUser] = useState(
+    JSON.parse(localStorage.getItem("userInfo")) || null
   );
-  const [dockerId, setDockerId] = useState(localStorage.getItem("dockerId") || null);
 
+  // Seteo de valores cuando alguna dependencia cambia
   useEffect(() => {
     localStorage.setItem("isLogged", isLogged);
-    localStorage.setItem("token", infoLogged);
-    localStorage.setItem("dockerId", dockerId);
-  }, [infoLogged, isLogged, dockerId]);
+    localStorage.setItem("userInfo", JSON.stringify(infoUser));
+  }, [infoUser, isLogged]);
 
-  const setLogged = (token, id) => {
+  // Login y seteo de info
+  const setLogged = (token, uInfo) => {
     setIsLogged(true);
-    setInfoLogged(token);
-    setDockerId(id);
+    setInfoUser({ token, userInfo: uInfo });
   };
+
+  // Unloged y borrado de la info
   const setUnLogged = () => {
     localStorage.removeItem("isLogged");
-    localStorage.removeItem("token");
-    localStorage.removeItem("dockerId");
+    localStorage.removeItem("userInfo");
 
     setIsLogged(false);
-    setInfoLogged(null);
-    setDockerId(null)
+    setInfoUser(null);
   };
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <LoginContext.Provider value={{ isLogged, setLogged, setUnLogged, infoLogged, dockerId, setDockerId }}>
+    <LoginContext.Provider value={{ isLogged, setLogged, setUnLogged, infoUser }}>
       {children}
     </LoginContext.Provider>
   );

@@ -1,36 +1,39 @@
 import axios from "axios"
-import { useState, useContext } from "react"
+import { useMemo, useState, useEffect, useContext } from "react"
 
 import { Switch } from "@mui/material"
-
-import useAuth from "src/hooks/useAuth"
 
 import { LoginContext } from "src/context/LoginContext"
 
 // eslint-disable-next-line arrow-body-style
 export const SwitchMode = () => {
   const [isOnline, setOnline] = useState(false)
-  const { validateToken } = useAuth()
-  const { dockerId, infoLogged } = useContext(LoginContext)
-  const [containerId, setContainerId] = useState(null)
+  const { infoUser } = useContext(LoginContext)
+  const [, setContainerId] = useState(null)
 
-  const config = {
+  const config = useMemo(() => ({
     headers: {
-      'Authorization': `${infoLogged}`
-    },
-  };
+      'Authorization': `${infoUser.token}`
+    }
+  }), [infoUser.token]);
+
+  useEffect(() => {
+    axios.post("http://localhost:3000/containers/getInfo", null, config)
+      .then((res) => setOnline(res.data))
+      .catch((err) => console.loge(err))
+  }, [config])
+
 
   const hanldeOnline = async () => {
-    const route = isOnline ? `http://localhost:3000/containers/${containerId}/stop` : `http://localhost:3000/containers/${dockerId}/start`;
-    if (await validateToken()) {
+    const route = isOnline ? `http://localhost:3000/containers/stop` : `http://localhost:3000/containers/start`;
+
       axios.post(route, null, config)
         .then((res) => {
-          console.log(res.data.containerId)
           setContainerId(res.data.containerId)
           setOnline(!isOnline)
         })
         .catch((err) => console.log(err))
-    }
+
   }
 
   return (

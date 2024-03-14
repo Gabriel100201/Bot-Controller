@@ -1,12 +1,19 @@
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { useContext, useCallback } from 'react';
+import { useEffect, useContext, useCallback } from 'react';
 
 import { LoginContext } from 'src/context/LoginContext';
 
 const useAuth = () => {
-  const { setLogged, infoLogged, setUnLogged } = useContext(LoginContext);
-  const navigate = useNavigate();
+  const { setLogged, infoUser, isLogged, setUnLogged } = useContext(LoginContext);
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    if (isLogged === true && validateToken()) {
+      navigate("/")
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [infoUser, isLogged, navigate])
 
   const validateToken = async () => {
     try {
@@ -15,11 +22,10 @@ const useAuth = () => {
         null,
         {
           headers: {
-            Authorization: `${infoLogged}`,
+            Authorization: `${infoUser.token}`,
           },
         }
       );
-
       return response.data.valid;
     } catch (error) {
       return false;
@@ -32,13 +38,12 @@ const useAuth = () => {
         username,
         password,
       });
-      const { token, dockerId } = response.data;
-      setLogged(token, dockerId)
-      navigate("/")
+      const { token, userInfo } = response.data;
+      setLogged(token, userInfo)
     } catch (error) {
       console.error('Error de inicio de sesión:', error.message);
     }
-  }, [setLogged, navigate]);
+  }, [setLogged]);
 
   const logout = useCallback(() => {
     setUnLogged()

@@ -4,18 +4,10 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
-/* import Iconify from 'src/components/iconify'; */
-
-/* import AppTasks from '../app-tasks'; */
-/* import AppNewsUpdate from '../app-news-update'; */
 import { SwitchMode } from '../app-switch-mode';
 import AppOrderTimeline from '../app-order-timeline';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
-/* import AppCurrentVisits from '../app-current-visits';
-import AppTrafficBySite from '../app-traffic-by-site';
-import AppCurrentSubject from '../app-current-subject';
-import AppConversionRates from '../app-conversion-rates'; */
 
 // ----------------------------------------------------------------------
 
@@ -47,7 +39,7 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
-            title="Clientes Contactados"
+            title="Comunicados"
             total={1723315}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
@@ -89,7 +81,7 @@ export default function AppView() {
                   data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
                 },
                 {
-                  name: 'Clientes conectados',
+                  name: 'Comunicados',
                   type: 'area',
                   fill: 'gradient',
                   data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],

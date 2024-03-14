@@ -1,7 +1,8 @@
 <URGENTE>
-  - Implementar funcionamiento de botón de encendido / apagado
+  - Implementar funcionamiento de botón de encendido / apagado ✅
+  - Implementar login ✅
+  - Crear y conectar base de datos
   - Implementar métricas
-  - Implementar login
   - Cambiar imagen de signo de pregunta
 <NORMAL>
   - Implementar commits en el grid

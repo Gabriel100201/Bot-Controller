@@ -8,7 +8,7 @@ import { LoginContext } from "../../context/LoginContext";
 
 // eslint-disable-next-line react/prop-types
 export const ProtectedView = ({ children }) => {
-  const { isLogged, infoLogged } = useContext(LoginContext);
+  const { isLogged, infoUser } = useContext(LoginContext);
   const { validateToken } = useAuth()
   const navigate = useNavigate();
 
@@ -22,7 +22,7 @@ export const ProtectedView = ({ children }) => {
 
     checkToken();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLogged, infoLogged, navigate]);
+  }, [isLogged, infoUser, navigate]);
 
   return <div>{children}</div>;
 };
