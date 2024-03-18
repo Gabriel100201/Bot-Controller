@@ -18,7 +18,7 @@ const useAuth = () => {
   const validateToken = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:3000/verifyToken",
+        "http://18.234.215.158:3000/verifyToken",
         null,
         {
           headers: {
@@ -34,7 +34,7 @@ const useAuth = () => {
 
   const login = useCallback(async (username, password) => {
     try {
-      const response = await axios.post('http://localhost:3000/login', {
+      const response = await axios.post('http://18.234.215.158:3000/login', {
         username,
         password,
       });
