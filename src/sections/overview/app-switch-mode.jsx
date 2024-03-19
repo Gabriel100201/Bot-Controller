@@ -18,14 +18,14 @@ export const SwitchMode = () => {
   }), [infoUser.token]);
 
   useEffect(() => {
-    axios.post("https://bots-technodevs.online/containers/getInfo", null, config)
+    axios.post("https://bots-technodevs.online/api/containers/getInfo", null, config)
       .then((res) => setOnline(res.data))
       .catch((err) => console.loge(err))
   }, [config])
 
 
   const hanldeOnline = async () => {
-    const route = isOnline ? `https://bots-technodevs.online/containers/stop` : `https://bots-technodevs.online:3000/containers/start`;
+    const route = isOnline ? `https://bots-technodevs.online/api/containers/stop` : `https://bots-technodevs.online/api:3000/containers/start`;
 
       axios.post(route, null, config)
         .then((res) => {

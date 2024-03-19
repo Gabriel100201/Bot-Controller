@@ -18,7 +18,7 @@ const useAuth = () => {
   const validateToken = async () => {
     try {
       const response = await axios.post(
-        "https://bots-technodevs.online/verifyToken",
+        "https://bots-technodevs.online/api/verifyToken",
         null,
         {
           headers: {
@@ -34,7 +34,7 @@ const useAuth = () => {
 
   const login = useCallback(async (username, password) => {
     try {
-      const response = await axios.post('https://bots-technodevs.online:3000/login', {
+      const response = await axios.post('https://bots-technodevs.online/api:3000/login', {
         username,
         password,
       });
