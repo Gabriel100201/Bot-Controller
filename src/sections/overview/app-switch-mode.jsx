@@ -18,14 +18,14 @@ export const SwitchMode = () => {
   }), [infoUser.token]);
 
   useEffect(() => {
-    axios.post("http://18.234.215.158:3000/containers/getInfo", null, config)
+    axios.post("https://18.234.215.158:3000/containers/getInfo", null, config)
       .then((res) => setOnline(res.data))
       .catch((err) => console.loge(err))
   }, [config])
 
 
   const hanldeOnline = async () => {
-    const route = isOnline ? `http://18.234.215.158:3000/containers/stop` : `http://18.234.215.158:3000/containers/start`;
+    const route = isOnline ? `https://18.234.215.158:3000/containers/stop` : `https://18.234.215.158:3000/containers/start`;
 
       axios.post(route, null, config)
         .then((res) => {
