@@ -34,7 +34,7 @@ const useAuth = () => {
 
   const login = useCallback(async (username, password) => {
     try {
-      const response = await axios.post('https://bots-technodevs.online/api:3000/login', {
+      const response = await axios.post('https://bots-technodevs.online/api/login', {
         username,
         password,
       });

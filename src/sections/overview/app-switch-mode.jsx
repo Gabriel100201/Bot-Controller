@@ -25,7 +25,7 @@ export const SwitchMode = () => {
 
 
   const hanldeOnline = async () => {
-    const route = isOnline ? `https://bots-technodevs.online/api/containers/stop` : `https://bots-technodevs.online/api:3000/containers/start`;
+    const route = isOnline ? `https://bots-technodevs.online/api/containers/stop` : `https://bots-technodevs.online/api/containers/start`;
 
       axios.post(route, null, config)
         .then((res) => {
