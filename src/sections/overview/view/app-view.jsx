@@ -4,10 +4,17 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
 import Typography from '@mui/material/Typography';
 
+/* import Iconify from 'src/components/iconify/iconify'; */
+
+/* import AppNewsUpdate from '../app-news-update'; */
 import { SwitchMode } from '../app-switch-mode';
 import AppOrderTimeline from '../app-order-timeline';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
+/* import AppCurrentVisits from '../app-current-visits';
+import AppTrafficBySite from '../app-traffic-by-site';
+import AppCurrentSubject from '../app-current-subject';
+import AppConversionRates from '../app-conversion-rates'; */
 
 // ----------------------------------------------------------------------
 
@@ -60,7 +67,7 @@ export default function AppView() {
             sx={{
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
-            title="Bugs Reportados"
+            title="Costos totales"
             total={234}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
@@ -139,11 +146,20 @@ export default function AppView() {
           }} />
         </Grid>
 
-        {/* <Grid xs={12} md={12} lg={6}>
-          <QrIframe />
-        </Grid> */}
-
         {/* <Grid xs={12} md={6} lg={4}>
+          <AppCurrentVisits
+            title="Current Visits"
+            chart={{
+              series: [
+                { label: 'America', value: 4344 },
+                { label: 'Asia', value: 5435 },
+                { label: 'Europe', value: 1443 },
+                { label: 'Africa', value: 4443 },
+              ],
+            }}
+          />
+        </Grid>
+        <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
             title="Current Visits"
             chart={{
@@ -231,9 +247,9 @@ export default function AppView() {
               },
             ]}
           />
-        </Grid>
+        </Grid> */}
 
-        <Grid xs={12} md={6} lg={8}>
+        {/* <Grid xs={12} md={6} lg={8}>
           <AppTasks
             title="Tasks"
             list={[
