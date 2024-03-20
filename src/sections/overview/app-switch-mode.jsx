@@ -20,7 +20,7 @@ export const SwitchMode = () => {
   useEffect(() => {
     axios.post("https://bots-technodevs.online/api/containers/getInfo", null, config)
       .then((res) => setOnline(res.data))
-      .catch((err) => console.loge(err))
+      .catch((err) => console.log(err))
   }, [config])
 
 
