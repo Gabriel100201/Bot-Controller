@@ -5,9 +5,12 @@ import { Switch } from "@mui/material"
 
 import { LoginContext } from "src/context/LoginContext"
 
-// eslint-disable-next-line arrow-body-style
-export const SwitchMode = () => {
+import { ModalQR } from "./app-qr-modal"
+
+// eslint-disable-next-line arrow-body-style, react/prop-types
+export const SwitchMode = ({ sx }) => {
   const [isOnline, setOnline] = useState(false)
+  const [isLoading, setLoading] = useState(false)
   const { infoUser } = useContext(LoginContext)
   const [, setContainerId] = useState(null)
 
@@ -25,6 +28,7 @@ export const SwitchMode = () => {
 
 
   const hanldeOnline = async () => {
+    setLoading(true)
     const route = isOnline ? `https://bots-technodevs.online/api/containers/stop` : `https://bots-technodevs.online/api/containers/start`;
 
       axios.post(route, null, config)
@@ -33,16 +37,19 @@ export const SwitchMode = () => {
           setOnline(!isOnline)
         })
         .catch((err) => console.log(err))
-
+        .finally(() => setLoading(false))
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-sm flex flex-col p-8 items-center justify-start">
+    <div style={{ ...sx }} className="bg-white rounded-lg flex flex-col p-8 items-center justify-start">
       <h3 className="font-semibold text-lg">Estado del bot</h3>
       <span className="text-sm text-gray-400">Tiempo total activo: 2 días</span>
-      <div className="mt-5">
-        <Switch checked={isOnline} size="medium" onChange={hanldeOnline} />
+      <div className="mt-5 flex justify-center flex-col items-center">
+        <Switch checked={isOnline} disabled={isLoading} size="medium" onChange={hanldeOnline} />
         <span>{isOnline ? "Encendido" : "Apagado"}</span>
+        <div className="mt-5">
+          <ModalQR isDisabled={!isOnline} />
+        </div>
       </div>
     </div>
   )

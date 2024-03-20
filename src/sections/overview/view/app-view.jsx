@@ -21,6 +21,9 @@ export default function AppView() {
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
+            sx={{
+              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+            }}
             title="Histórico clientes"
             total={714000}
             color="success"
@@ -30,6 +33,9 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
+            sx={{
+              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+            }}
             title="Nuevos clientes"
             total={1352831}
             color="info"
@@ -39,6 +45,9 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
+            sx={{
+              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+            }}
             title="Comunicados"
             total={1723315}
             color="warning"
@@ -48,6 +57,9 @@ export default function AppView() {
 
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
+            sx={{
+              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+            }}
             title="Bugs Reportados"
             total={234}
             color="error"
@@ -57,6 +69,9 @@ export default function AppView() {
 
         <Grid xs={12} md={6} lg={8}>
           <AppWebsiteVisits
+            sx={{
+              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+            }}
             title="Chatbot Métricas"
             subheader="(+43%) than last year <- comentario"
             chart={{
@@ -99,6 +114,9 @@ export default function AppView() {
 
         <Grid xs={12} md={6} lg={4}>
           <AppOrderTimeline
+            sx={{
+              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+            }}
             title="Order Timeline"
             list={[...Array(5)].map((_, index) => ({
               id: faker.string.uuid(),
@@ -116,8 +134,14 @@ export default function AppView() {
         </Grid>
 
         <Grid xs={12} md={12} lg={3}>
-          <SwitchMode />
+          <SwitchMode sx={{
+            boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+          }} />
         </Grid>
+
+        {/* <Grid xs={12} md={12} lg={6}>
+          <QrIframe />
+        </Grid> */}
 
         {/* <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits

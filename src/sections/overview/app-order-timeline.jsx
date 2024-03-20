@@ -21,6 +21,7 @@ export default function AnalyticsOrderTimeline({ title, subheader, list, ...othe
 
       <Timeline
         sx={{
+          height: 430,
           m: 0,
           p: 3,
           [`& .${timelineItemClasses.root}:before`]: {
