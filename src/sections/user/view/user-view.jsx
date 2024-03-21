@@ -3,7 +3,10 @@ import { useState } from 'react';
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
+import Modal from '@mui/material/Modal';
+import { MenuItem } from '@mui/material';
 import Button from '@mui/material/Button';
+import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
@@ -36,6 +39,16 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   const handleSort = (event, id) => {
     const isAsc = orderBy === id && order === 'asc';
@@ -94,15 +107,74 @@ export default function UserPage() {
 
   const notFound = !dataFiltered.length && !!filterName;
 
+  const options = [
+    {
+      value: "bot-1",
+      label: "bot-1"
+    },
+    {
+      value: "bot-2",
+      label: "bot-2"
+    },
+    {
+      value: "bot-3",
+      label: "bot-3"
+    }
+  ]
+
+  const cardStyles = {
+    width: '100%',
+    maxWidth: '600px',
+    padding: '70px',
+    height: '90%',
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: '30px'
+  }
+
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Users</Typography>
+        <Typography variant="h4">Usuarios</Typography>
 
-        <Button variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
-          New User
+        <Button onClick={handleOpenModal} variant="contained" color="inherit" startIcon={<Iconify icon="eva:plus-fill" />}>
+          Nuevo usuario
         </Button>
       </Stack>
+
+      <Modal
+        open={openModal}
+        onClose={handleCloseModal}
+        aria-labelledby="modal-title"
+        aria-describedby="modal-description"
+      >
+        <Card sx={cardStyles}>
+          <span className='w-full text-center text-2xl font-semibold mb-7'>Información del nuevo usuario</span>
+          <TextField id="filled-basic" label="Nombre" variant="filled" />
+          <TextField id="filled-basic" label="Empresa" variant="filled" />
+          <TextField id="filled-basic" label="Rol" variant="filled" />
+          <TextField
+            id="filled-select-currency"
+            select
+            label="Bot"
+            defaultValue="bot-1"
+            helperText="Por favor selecciona su bot"
+            variant="filled"
+          >
+            {options.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <Button className='h-12' variant="contained">Crear Usuario</Button>
+        </Card>
+      </Modal>
 
       <Card>
         <UserTableToolbar
@@ -122,11 +194,11 @@ export default function UserPage() {
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'company', label: 'Company' },
-                  { id: 'role', label: 'Role' },
-                  { id: 'isVerified', label: 'Verified', align: 'center' },
-                  { id: 'status', label: 'Status' },
+                  { id: 'Nombre', label: 'Nombre' },
+                  { id: 'Empresa', label: 'Empresa' },
+                  { id: 'Rol', label: 'Rol' },
+                  { id: 'Bot', label: 'Bot', align: 'center' },
+                  { id: 'Estado', label: 'Estado' },
                   { id: '' },
                 ]}
               />
