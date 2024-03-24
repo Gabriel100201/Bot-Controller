@@ -6,7 +6,12 @@ import Typography from '@mui/material/Typography';
 
 /* import Iconify from 'src/components/iconify/iconify'; */
 
+import axios from 'axios';
 /* import AppNewsUpdate from '../app-news-update'; */
+import { useState, useEffect, useContext } from 'react';
+
+import { LoginContext } from 'src/context/LoginContext';
+
 import { SwitchMode } from '../app-switch-mode';
 import AppOrderTimeline from '../app-order-timeline';
 import AppWebsiteVisits from '../app-website-visits';
@@ -19,6 +24,21 @@ import AppConversionRates from '../app-conversion-rates'; */
 // ----------------------------------------------------------------------
 
 export default function AppView() {
+  const { infoUser } = useContext(LoginContext)
+  const [measures, setMeasures] = useState({})
+
+  useEffect(() => {
+    axios.post("https://bots-technodevs.online/api/getMeasures", null,
+      {
+        headers: {
+          Authorization: `${infoUser.token}`,
+        },
+      })
+      .then((res) => {
+        setMeasures(res.data)
+      })
+  }, [infoUser])
+
   return (
     <Container maxWidth="xl">
       <Typography variant="h4" sx={{ mb: 5 }}>
@@ -31,8 +51,8 @@ export default function AppView() {
             sx={{
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
-            title="Histórico clientes"
-            total={714000}
+            title="Interacciones"
+            total={measures.countMessages}
             color="success"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
           />
@@ -43,8 +63,8 @@ export default function AppView() {
             sx={{
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
-            title="Nuevos clientes"
-            total={1352831}
+            title="Clientes"
+            total={measures.countClients}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
@@ -56,7 +76,7 @@ export default function AppView() {
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
             title="Comunicados"
-            total={1723315}
+            total={measures.countConnected}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
@@ -67,8 +87,8 @@ export default function AppView() {
             sx={{
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
-            title="Costos totales"
-            total={234}
+            title="Costos"
+            total={measures.countCosts}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           />
