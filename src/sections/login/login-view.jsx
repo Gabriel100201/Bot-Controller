@@ -12,8 +12,6 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import { alpha, useTheme } from '@mui/material/styles';
 import InputAdornment from '@mui/material/InputAdornment';
 
-/* import { useRouter } from 'src/routes/hooks'; */
-
 import useAuth from 'src/hooks/useAuth';
 
 import { bgGradient } from 'src/theme/css';

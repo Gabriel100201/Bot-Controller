@@ -1,7 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 
 export const LoginContext = createContext();
-
 // eslint-disable-next-line react/prop-types
 export const LoginProvider = ({ children }) => {
   // Obtension de valores almacenados en la base de datos

@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
@@ -21,6 +22,7 @@ export default function UserTableRow({
   name,
   avatarUrl,
   company,
+  bot,
   role,
   isVerified,
   status,
@@ -35,6 +37,20 @@ export default function UserTableRow({
   const handleCloseMenu = () => {
     setOpen(null);
   };
+
+  const labelColor = (labelStatus) => {
+    const labelMap = {
+      "online": "success",
+      "error": "error",
+      "banned": "error",
+      "offline": "warning",
+    }
+    let color = labelMap[labelStatus]
+    if (!color) {
+      color = "info"
+    }
+    return color
+  }
 
   return (
     <>
@@ -56,10 +72,10 @@ export default function UserTableRow({
 
         <TableCell>{role}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell align="center">{bot}</TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          <Label color={labelColor(status)}>{status}</Label>
         </TableCell>
 
         <TableCell align="right">

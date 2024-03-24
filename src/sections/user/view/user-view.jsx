@@ -1,24 +1,27 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useMemo, useState, useEffect, useContext } from 'react';
 
 import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Table from '@mui/material/Table';
-import Modal from '@mui/material/Modal';
-import { MenuItem } from '@mui/material';
 import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
 import Container from '@mui/material/Container';
 import TableBody from '@mui/material/TableBody';
 import Typography from '@mui/material/Typography';
 import TableContainer from '@mui/material/TableContainer';
 import TablePagination from '@mui/material/TablePagination';
 
-import { users } from 'src/_mock/user';
+/* import { users } from 'src/_mock/user'; */
+
+import axios from 'axios';
+
+import { LoginContext } from 'src/context/LoginContext';
 
 import Iconify from 'src/components/iconify';
 import Scrollbar from 'src/components/scrollbar';
 
 import TableNoData from '../table-no-data';
+import UserModal from '../user-create-modal';
 import UserTableRow from '../user-table-row';
 import UserTableHead from '../user-table-head';
 import TableEmptyRows from '../table-empty-rows';
@@ -28,6 +31,8 @@ import { emptyRows, applyFilter, getComparator } from '../utils';
 // ----------------------------------------------------------------------
 
 export default function UserPage() {
+  const { infoUser } = useContext(LoginContext)
+
   const [page, setPage] = useState(0);
 
   const [order, setOrder] = useState('asc');
@@ -41,6 +46,35 @@ export default function UserPage() {
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const [openModal, setOpenModal] = useState(false);
+
+  const [users, setUsers] = useState([])
+
+  const config = useMemo(() => ({
+    headers: {
+      'Authorization': `${infoUser.token}`
+    }
+  }), [infoUser.token]);
+
+  const fetchUsersData = () => {
+    axios.post("https://bots-technodevs.online/api/getUsers", null, config)
+      .then((res) => {
+        const { data } = res;
+        const usersParsed = data.map((user) => ({
+          id: user.id,
+          name: user.userName,
+          role: user.rol,
+          company: user.company,
+          status: user.status ? user.status : "error",
+          bot: user.image.name
+        }));
+        setUsers(usersParsed);
+      })
+      .catch((err) => console.log(err));
+  };
+
+  useEffect(() => {
+    fetchUsersData();
+  }, [config]);
 
   const handleOpenModal = () => {
     setOpenModal(true);
@@ -107,36 +141,6 @@ export default function UserPage() {
 
   const notFound = !dataFiltered.length && !!filterName;
 
-  const options = [
-    {
-      value: "bot-1",
-      label: "bot-1"
-    },
-    {
-      value: "bot-2",
-      label: "bot-2"
-    },
-    {
-      value: "bot-3",
-      label: "bot-3"
-    }
-  ]
-
-  const cardStyles = {
-    width: '100%',
-    maxWidth: '600px',
-    padding: '70px',
-    height: '90%',
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: '30px'
-  }
-
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
@@ -147,34 +151,7 @@ export default function UserPage() {
         </Button>
       </Stack>
 
-      <Modal
-        open={openModal}
-        onClose={handleCloseModal}
-        aria-labelledby="modal-title"
-        aria-describedby="modal-description"
-      >
-        <Card sx={cardStyles}>
-          <span className='w-full text-center text-2xl font-semibold mb-7'>Información del nuevo usuario</span>
-          <TextField id="filled-basic" label="Nombre" variant="filled" />
-          <TextField id="filled-basic" label="Empresa" variant="filled" />
-          <TextField id="filled-basic" label="Rol" variant="filled" />
-          <TextField
-            id="filled-select-currency"
-            select
-            label="Bot"
-            defaultValue="bot-1"
-            helperText="Por favor selecciona su bot"
-            variant="filled"
-          >
-            {options.map((option) => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-          </TextField>
-          <Button className='h-12' variant="contained">Crear Usuario</Button>
-        </Card>
-      </Modal>
+      <UserModal openModal={openModal} handleCloseModal={handleCloseModal} fetchUsersData={fetchUsersData} />
 
       <Card>
         <UserTableToolbar
@@ -213,7 +190,7 @@ export default function UserPage() {
                       status={row.status}
                       company={row.company}
                       avatarUrl={row.avatarUrl}
-                      isVerified={row.isVerified}
+                      bot={row.bot}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}
                     />

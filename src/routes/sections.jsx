@@ -18,19 +18,17 @@ export default function Router() {
   const routes = useRoutes([
     {
       element: (
-          <ProtectedView>
-            <DashboardLayout>
-              <Suspense>
-                <Outlet />
-              </Suspense>
-            </DashboardLayout>
-          </ProtectedView>
+        <DashboardLayout>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Outlet />
+          </Suspense>
+        </DashboardLayout>
       ),
       children: [
-        { element: <IndexPage />, index: true },
-        { path: 'user', element: <UserPage /> },
-        { path: 'products', element: <ProductsPage /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: '/', element: <ProtectedView><IndexPage /></ProtectedView> },
+        { path: 'user', element: <ProtectedView><UserPage /></ProtectedView> },
+        { path: 'products', element: <ProtectedView><ProductsPage /></ProtectedView> },
+        { path: 'blog', element: <ProtectedView><BlogPage /></ProtectedView> },
       ],
     },
     {

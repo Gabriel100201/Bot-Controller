@@ -1,6 +1,6 @@
 /* eslint-disable import/no-extraneous-dependencies */
-import { useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import useAuth from "src/hooks/useAuth";
 
@@ -8,21 +8,29 @@ import { LoginContext } from "../../context/LoginContext";
 
 // eslint-disable-next-line react/prop-types
 export const ProtectedView = ({ children }) => {
-  const { isLogged, infoUser } = useContext(LoginContext);
-  const { validateToken } = useAuth()
-  const navigate = useNavigate();
+  const { isLogged } = useContext(LoginContext);
+  const { validateToken } = useAuth();
+  const location = useLocation();
 
+  const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkToken = async () => {
-      if (!isLogged || !(await validateToken())) {
+      const isValidToken = await validateToken();
+      if (!isLogged || !isValidToken) {
         navigate("/login");
+      } else {
+        setIsLoading(false);
       }
     };
-
     checkToken();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLogged, infoUser, navigate]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return <div>{children}</div>;
 };

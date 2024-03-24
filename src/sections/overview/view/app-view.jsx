@@ -145,6 +145,20 @@ export default function AppView() {
             boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
           }} />
         </Grid>
+        
+        {/* <Grid xs={12} md={6} lg={4}>
+          <AppCurrentVisits
+            title="Current Visits"
+            chart={{
+              series: [
+                { label: 'America', value: 4344 },
+                { label: 'Asia', value: 5435 },
+                { label: 'Europe', value: 1443 },
+                { label: 'Africa', value: 4443 },
+              ],
+            }}
+          />
+        </Grid> */}
 
         {/* <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
