@@ -2,7 +2,9 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useContext, useCallback } from 'react';
 
+import { URL_API } from 'src/config/URL_API';
 import { LoginContext } from 'src/context/LoginContext';
+
 
 const useAuth = () => {
   const { setLogged, infoUser, /* isLogged, */ setUnLogged } = useContext(LoginContext);
@@ -11,7 +13,7 @@ const useAuth = () => {
   const validateToken = async () => {
     try {
       const response = await axios.post(
-        "https://bots-technodevs.online/api/verifyToken",
+        `${URL_API()}/verifyToken`,
         null,
         {
           headers: {
@@ -27,7 +29,7 @@ const useAuth = () => {
 
   const login = useCallback(async (username, password) => {
     try {
-      const response = await axios.post('https://bots-technodevs.online/api/login', {
+      const response = await axios.post(`${URL_API()}/login`, {
         username,
         password,
       });

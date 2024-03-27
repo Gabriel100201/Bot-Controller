@@ -15,6 +15,7 @@ import TablePagination from '@mui/material/TablePagination';
 
 import axios from 'axios';
 
+import { URL_API } from 'src/config/URL_API';
 import { LoginContext } from 'src/context/LoginContext';
 
 import Iconify from 'src/components/iconify';
@@ -56,7 +57,7 @@ export default function UserPage() {
   }), [infoUser.token]);
 
   const fetchUsersData = () => {
-    axios.post("https://bots-technodevs.online/api/getUsers", null, config)
+    axios.post(`${URL_API()}/getUsers`, null, config)
       .then((res) => {
         const { data } = res;
         const usersParsed = data.map((user) => ({

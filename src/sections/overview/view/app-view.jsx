@@ -10,6 +10,7 @@ import axios from 'axios';
 /* import AppNewsUpdate from '../app-news-update'; */
 import { useState, useEffect, useContext } from 'react';
 
+import { URL_API } from 'src/config/URL_API';
 import { LoginContext } from 'src/context/LoginContext';
 
 import { SwitchMode } from '../app-switch-mode';
@@ -28,7 +29,7 @@ export default function AppView() {
   const [measures, setMeasures] = useState({})
 
   useEffect(() => {
-    axios.post("https://bots-technodevs.online/api/getMeasures", null,
+    axios.post(`${URL_API()}/getMeasures`, null,
       {
         headers: {
           Authorization: `${infoUser.token}`,
@@ -36,6 +37,7 @@ export default function AppView() {
       })
       .then((res) => {
         setMeasures(res.data)
+        console.log(res.data)
       })
   }, [infoUser])
 

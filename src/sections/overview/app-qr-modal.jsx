@@ -3,6 +3,8 @@ import React, { useState } from 'react';
 
 import { Box, Modal, Button } from '@mui/material';
 
+import { URL_API } from 'src/config/URL_API';
+
 // eslint-disable-next-line react/prop-types
 export const ModalQR = ({ isDisabled }) => {
   const [open, setOpen] = useState(false);
@@ -50,7 +52,7 @@ export const ModalQR = ({ isDisabled }) => {
       }}
       style={modalStyle}
     >
-      <iframe src="https://bots-technodevs.online/bot-td/qr" frameBorder="0"
+      <iframe src={`${URL_API()}/bot-td/qr`} frameBorder="0"
         scrolling="no"
         style={iframeStyle} />
     </Box>

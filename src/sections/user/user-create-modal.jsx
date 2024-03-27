@@ -3,6 +3,7 @@ import { useMemo, useState, useEffect, useContext } from "react";
 
 import { Card, Modal, Button, MenuItem, TextField } from "@mui/material";
 
+import { URL_API } from "src/config/URL_API";
 import { LoginContext } from "src/context/LoginContext";
 
 // eslint-disable-next-line react/prop-types
@@ -20,7 +21,7 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
   });
 
   useEffect(() => {
-    axios.post('https://bots-technodevs.online/api/images', null, {
+    axios.post(`${URL_API()}/images`, null, {
       headers: {
         Authorization: `${infoUser.token}`
       }
@@ -67,7 +68,7 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
   }), [infoUser.token]);
 
   const handleSubmit = () => {
-    axios.post('https://bots-technodevs.online/api/createUser', formData, config)
+    axios.post(`${URL_API()}/createUser`, formData, config)
       .then(() => {
         handleCloseModal()
         fetchUsersData()

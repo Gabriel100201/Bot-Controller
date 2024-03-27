@@ -3,6 +3,7 @@ import { useMemo, useState, useEffect, useContext } from "react"
 
 import { Switch } from "@mui/material"
 
+import { URL_API } from "src/config/URL_API"
 import { LoginContext } from "src/context/LoginContext"
 
 import { ModalQR } from "./app-qr-modal"
@@ -21,7 +22,7 @@ export const SwitchMode = ({ sx }) => {
   }), [infoUser.token]);
 
   useEffect(() => {
-    axios.post("https://bots-technodevs.online/api/containers/getInfo", null, config)
+    axios.post(`${URL_API()}/containers/getInfo`, null, config)
       .then((res) => setOnline(res.data))
       .catch((err) => console.log(err))
   }, [config])
@@ -29,7 +30,7 @@ export const SwitchMode = ({ sx }) => {
 
   const hanldeOnline = async () => {
     setLoading(true)
-    const route = isOnline ? `https://bots-technodevs.online/api/containers/stop` : `https://bots-technodevs.online/api/containers/start`;
+    const route = isOnline ? `${URL_API()}/containers/stop` : `${URL_API()}/containers/start`;
 
       axios.post(route, null, config)
         .then((res) => {
