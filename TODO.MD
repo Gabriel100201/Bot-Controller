@@ -8,6 +8,8 @@
     - Levantar un contenedor de docker en el servidor ✅
     - Migrar base de datos local ✅
   - Implementar métricas ⏲️
+  - Agregar logica para quitar un usuario
+  - Agregar logica para banear un usuario
   - Cambiar imagen de signo de pregunta
 <NORMAL>
   - Implementar commits en el grid

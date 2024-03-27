@@ -37,7 +37,6 @@ export default function AppView() {
       })
       .then((res) => {
         setMeasures(res.data)
-        console.log(res.data)
       })
   }, [infoUser])
 
@@ -90,6 +89,7 @@ export default function AppView() {
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
             title="Costos"
+            isMoneyValue
             total={measures.countCosts}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}

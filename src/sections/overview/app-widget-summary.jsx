@@ -9,7 +9,9 @@ import { fShortenNumber } from 'src/utils/format-number';
 
 // ----------------------------------------------------------------------
 
-export default function AppWidgetSummary({ title, total, icon, color = 'primary', sx, ...other }) {
+// eslint-disable-next-line react/prop-types
+export default function AppWidgetSummary({ title, total, icon, isMoneyValue, color = 'primary', sx, ...other }) {
+  const cardValue = isMoneyValue ? `$${fShortenNumber(total)}` : fShortenNumber(total)
   return (
     <Card
       component={Stack}
@@ -26,7 +28,7 @@ export default function AppWidgetSummary({ title, total, icon, color = 'primary'
       {icon && <Box sx={{ width: 64, height: 64 }}>{icon}</Box>}
 
       <Stack spacing={0.5}>
-        <Typography variant="h4">{fShortenNumber(total)}</Typography>
+        <Typography variant="h4">{cardValue}</Typography>
 
         <Typography variant="subtitle2" sx={{ color: 'text.disabled' }}>
           {title}

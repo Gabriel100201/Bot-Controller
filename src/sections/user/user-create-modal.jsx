@@ -28,10 +28,6 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
     })
       .then((res) => {
         const botsData = (res.data)
-        botsData.forEach((bot) => {
-          bot.Id = bot.Id.split(":")
-          bot.Id = bot.Id[1]
-        })
         setBots(botsData)
       })
       .catch((err) => console.log(err))
@@ -111,8 +107,8 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
             onChange={handleChange}
           >
             {bots.map((option, index) => (
-              <MenuItem key={index} value={option.Id} >
-                {option.RepoTags[0]}
+              <MenuItem key={index} value={option.id} >
+                {option.name}
               </MenuItem>
             ))}
           </TextField>
