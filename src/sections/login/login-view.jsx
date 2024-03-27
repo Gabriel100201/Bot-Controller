@@ -1,4 +1,6 @@
 import { useState } from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ThreeDots } from 'react-loader-spinner';
 
 import Box from '@mui/material/Box';
 import Link from '@mui/material/Link';
@@ -26,19 +28,29 @@ export default function LoginView() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const { login } = useAuth();
 
-  const handleClick = () => {
-    login(email, password);
+  const handleClick = async () => {
+    try {
+      setLoading(true);
+      await login(email, password);
+      setLoading(false);
+    } catch (err) {
+      setError(err.response ? err.response.data.error : "Error de conexion");
+      setLoading(false);
+    }
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
-        <TextField name="email" label="Dirección de Correo" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <TextField disabled={loading} name="email" label="Dirección de Correo" value={email} onChange={(e) => setEmail(e.target.value)} />
 
         <TextField
+          disabled={loading}
           name="password"
           label="Contraseña"
           type={showPassword ? 'text' : 'password'}
@@ -61,8 +73,15 @@ export default function LoginView() {
           Olvidaste la tu contraseña?
         </Link>
       </Stack>
-
+      <div className='flex w-full justify-center my-3 h-7'>
+        {error &&
+          <span className='text-red-500/80 text-center font-bold'>
+            {error}
+          </span>
+        }
+      </div>
       <LoadingButton
+        disabled={loading}
         fullWidth
         size="large"
         type="submit"
@@ -71,6 +90,22 @@ export default function LoginView() {
         onClick={handleClick}
       >
         Iniciar Sesión
+        {loading &&
+          <div className='absolute right-7'>
+            <ThreeDots
+              visible
+              height="30"
+              width="30"
+              color="#2D0D4C"
+              ariaLabel="line-wave-loading"
+              wrapperStyle={{}}
+              wrapperClass=""
+              firstLineColor=""
+              middleLineColor=""
+              lastLineColor=""
+            />
+          </div>
+        }
       </LoadingButton>
     </>
   );

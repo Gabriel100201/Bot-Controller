@@ -8,6 +8,7 @@
     - Levantar un contenedor de docker en el servidor ✅
     - Migrar base de datos local ✅
   - Implementar métricas ⏲️
+  - Crear loaders y validaciones de inputs ✅
   - Agregar logica para quitar un usuario
   - Agregar logica para banear un usuario
   - Cambiar imagen de signo de pregunta

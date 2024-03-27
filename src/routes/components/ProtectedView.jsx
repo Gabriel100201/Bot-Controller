@@ -29,7 +29,7 @@ export const ProtectedView = ({ children }) => {
   }, [location.pathname]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Pato</div>;
   }
 
   return <div>{children}</div>;

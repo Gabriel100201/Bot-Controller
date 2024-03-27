@@ -1,4 +1,8 @@
 import axios from "axios";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { toast } from "sonner";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { ThreeDots } from "react-loader-spinner";
 import { useMemo, useState, useEffect, useContext } from "react";
 
 import { Card, Modal, Button, MenuItem, TextField } from "@mui/material";
@@ -11,6 +15,7 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
   const { infoUser } = useContext(LoginContext)
   const [rols,] = useState(["user", "admin"])
   const [bots, setBots] = useState()
+  const [loading, setLoading] = useState()
 
   const [formData, setFormData] = useState({
     userName: "",
@@ -32,8 +37,6 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
       })
       .catch((err) => console.log(err))
   }, [infoUser])
-
-
 
   const cardStyles = {
     width: '100%',
@@ -64,14 +67,18 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
   }), [infoUser.token]);
 
   const handleSubmit = () => {
+    setLoading(true)
     axios.post(`${URL_API()}/createUser`, formData, config)
       .then(() => {
         handleCloseModal()
         fetchUsersData()
+        toast.success("Usuario creado con éxito")
       })
       .catch(error => {
-        console.error("Error al crear el usuario:", error);
-      });
+        toast.error(error.response.data.error)
+      })
+      .finally(() => setLoading(false))
+
   };
 
   return (
@@ -83,11 +90,11 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
     >
       <Card sx={cardStyles}>
         <span className='w-full text-center text-2xl font-semibold mb-2'>Información del nuevo usuario</span>
-        <TextField id="userName" label="Nombre" variant="filled" onChange={handleChange} />
-        <TextField id="password" label="Contraseña" type="password" variant="filled" onChange={handleChange} />
-        <TextField id="company" label="Empresa" variant="filled" onChange={handleChange} />
+        <TextField disabled={loading} id="userName" label="Nombre" variant="filled" onChange={handleChange} />
+        <TextField disabled={loading} id="password" label="Contraseña" type="password" variant="filled" onChange={handleChange} />
+        <TextField disabled={loading} id="company" label="Empresa" variant="filled" onChange={handleChange} />
         {rols &&
-          <TextField select name="rol" value={formData.rol} id="rol" label="Rol" variant="filled" onChange={handleChange}>
+          <TextField disabled={loading} select name="rol" value={formData.rol} id="rol" label="Rol" variant="filled" onChange={handleChange}>
             {rols.map((option) => (
               <MenuItem key={option} value={option}>
                 {option}
@@ -96,7 +103,7 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
           </TextField>
         }
         {bots &&
-          <TextField
+          <TextField disabled={loading}
             id="imageId"
             select
             name="imageId"
@@ -114,7 +121,25 @@ export default function UserModal({ openModal, handleCloseModal, fetchUsersData 
           </TextField>
         }
 
-        <Button className='h-12' variant="contained" onClick={handleSubmit}>Crear Usuario</Button>
+        <Button disabled={loading} className='h-12' variant="contained" onClick={handleSubmit}>
+          Crear Usuario
+          {loading &&
+            <div className='absolute right-7'>
+              <ThreeDots
+                visible
+                height="30"
+                width="30"
+                color="#2D0D4C"
+                ariaLabel="line-wave-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                firstLineColor=""
+                middleLineColor=""
+                lastLineColor=""
+              />
+            </div>
+          }
+        </Button>
       </Card>
     </Modal >
   );

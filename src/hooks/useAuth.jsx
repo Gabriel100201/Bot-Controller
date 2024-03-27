@@ -37,7 +37,8 @@ const useAuth = () => {
       setLogged(token, userInfo)
       navigate('/')
     } catch (error) {
-      console.error('Error de inicio de sesión:', error.message);
+      console.log(error.response.data.error)
+      throw error
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setLogged]);
