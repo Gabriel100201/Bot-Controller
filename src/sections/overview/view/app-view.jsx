@@ -77,7 +77,7 @@ export default function AppView() {
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
             title="Comunicados"
-            total={measures.countConnected}
+            total={measures.countConnecteds}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
