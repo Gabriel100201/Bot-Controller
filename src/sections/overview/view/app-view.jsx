@@ -29,14 +29,24 @@ export default function AppView() {
   const [measures, setMeasures] = useState({})
 
   useEffect(() => {
-    axios.post(`${URL_API()}/getMeasures`, null,
-      {
-        headers: {
-          Authorization: `${infoUser.token}`,
-        },
-      })
+    if (measures) {
+      const a = measures.measueresPerDay?.map((measure) => measure.countClients)
+      console.log(a)
+    }
+  }, [measures, setMeasures])
+
+  useEffect(() => {
+    axios.post(`${URL_API()}/getMeasures`, null, {
+      headers: {
+        Authorization: `${infoUser.token}`,
+      },
+    })
       .then((res) => {
-        setMeasures(res.data)
+        console.log(res.data)
+        setMeasures(prevState => ({
+          ...prevState,
+          ...res.data
+        }));
       })
   }, [infoUser])
 
@@ -53,7 +63,7 @@ export default function AppView() {
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
             title="Interacciones"
-            total={measures.countMessages}
+            total={measures.global?.countMessages}
             color="success"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
           />
@@ -65,7 +75,7 @@ export default function AppView() {
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
             title="Clientes"
-            total={measures.countClients}
+            total={measures.global?.countClients}
             color="info"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
           />
@@ -77,7 +87,7 @@ export default function AppView() {
               boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
             }}
             title="Comunicados"
-            total={measures.countConnecteds}
+            total={measures.global?.countConnecteds}
             color="warning"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
           />
@@ -90,7 +100,7 @@ export default function AppView() {
             }}
             title="Costos"
             isMoneyValue
-            total={measures.countCosts}
+            total={measures.global?.countCosts}
             color="error"
             icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
           />
@@ -104,37 +114,25 @@ export default function AppView() {
             title="Chatbot Métricas"
             subheader="(+43%) than last year <- comentario"
             chart={{
-              labels: [
-                '01/01/2024',
-                '02/01/2024',
-                '03/01/2024',
-                '04/01/2024',
-                '05/01/2024',
-                '06/01/2024',
-                '07/01/2024',
-                '08/01/2024',
-                '09/01/2024',
-                '10/01/2024',
-                '11/01/2024',
-              ],
+              labels: measures.measueresPerDay?.map((measure) => measure.date) || [],
               series: [
                 {
                   name: 'Clientes nuevos',
                   type: 'column',
                   fill: 'solid',
-                  data: [23, 11, 22, 27, 13, 22, 37, 21, 44, 22, 30],
+                  data: measures.measueresPerDay?.map((measure) => measure.countClients) || [],
                 },
                 {
                   name: 'Comunicados',
                   type: 'area',
                   fill: 'gradient',
-                  data: [44, 55, 41, 67, 22, 43, 21, 41, 56, 27, 43],
+                  data: measures.measueresPerDay?.map((measure) => measure.countConnecteds) || [],
                 },
                 {
-                  name: 'Bugs reportados',
+                  name: 'Costos',
                   type: 'line',
                   fill: 'solid',
-                  data: [30, 25, 36, 30, 45, 35, 64, 52, 59, 36, 39],
+                  data: measures.measueresPerDay?.map((measure) => measure.countCosts) || [],
                 },
               ],
             }}

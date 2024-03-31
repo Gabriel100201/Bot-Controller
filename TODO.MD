@@ -7,7 +7,8 @@
     - Crear implementacion en la api para guardar cambios en la base de datos ✅
     - Levantar un contenedor de docker en el servidor ✅
     - Migrar base de datos local ✅
-  - Implementar métricas ⏲️
+  - Implementar métricas ✅
+    -Implementar metricas diarias ✅
   - Crear loaders y validaciones de inputs ✅
   - Agregar logica para quitar un usuario
   - Agregar logica para banear un usuario
