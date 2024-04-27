@@ -16,6 +16,7 @@ import TablePagination from '@mui/material/TablePagination';
 import axios from 'axios';
 
 import { URL_API } from 'src/config/URL_API';
+import { URL_AVATAR } from 'src/config/URL_AVATAR';
 import { LoginContext } from 'src/context/LoginContext';
 
 import Iconify from 'src/components/iconify';
@@ -66,7 +67,7 @@ export default function UserPage() {
           role: user.rol,
           company: user.company,
           status: user.status ? user.status : "error",
-          bot: user.image.name
+          bot: user?.image?.name || "ALL"
         }));
         setUsers(usersParsed);
       })
@@ -190,7 +191,7 @@ export default function UserPage() {
                       role={row.role}
                       status={row.status}
                       company={row.company}
-                      avatarUrl={row.avatarUrl}
+                      avatarUrl={URL_AVATAR(row.name)}
                       bot={row.bot}
                       selected={selected.indexOf(row.name) !== -1}
                       handleClick={(event) => handleClick(event, row.name)}
