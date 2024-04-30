@@ -17,12 +17,26 @@ export const grey = {
   900: '#161C24',
 };
 
+export const tdPrimary = {
+  50: '#faf6fe',
+  100: '#f2eafd',
+  200: '#e7d9fb',
+  300: '#d5bcf6',
+  400: '#bb90f0',
+  500: '#a165e7',
+  600: '#8b46d7',
+  700: '#7633bd',
+  800: '#652f9a',
+  900: '#53277c',
+  950: '#2e0e4d',
+}
+
 export const primary = {
-  lighter: '#D0ECFE',
-  light: '#73BAFB',
-  main: '#1877F2',
-  dark: '#0C44AE',
-  darker: '#042174',
+  lighter: '#faf6fe',
+  light: '#f2eafd',
+  main: '#2e0e4d',
+  dark: '#333',
+  darker: '#111',
   contrastText: '#FFFFFF',
 };
 
@@ -87,6 +101,7 @@ export const action = {
 };
 
 const base = {
+  tdPrimary,
   primary,
   secondary,
   info,
@@ -107,7 +122,7 @@ export function palette() {
     mode: 'light',
     text: {
       primary: grey[800],
-      secondary: grey[600],
+      secondary: grey[400],
       disabled: grey[500],
     },
     background: {

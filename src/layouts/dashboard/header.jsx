@@ -9,8 +9,6 @@ import IconButton from '@mui/material/IconButton';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { bgBlur } from 'src/theme/css';
-
 import Iconify from 'src/components/iconify';
 
 import Searchbar from './common/searchbar';
@@ -52,14 +50,12 @@ export default function Header({ onOpenNav }) {
         boxShadow: 'none',
         height: HEADER.H_MOBILE,
         zIndex: theme.zIndex.appBar + 1,
-        ...bgBlur({
-          color: theme.palette.background.default,
-        }),
+        bgcolor: theme.palette.grey[300],
         transition: theme.transitions.create(['height'], {
           duration: theme.transitions.duration.shorter,
         }),
         ...(lgUp && {
-          width: `calc(100% - ${NAV.WIDTH + 1}px)`,
+          width: `calc(100% - ${NAV.WIDTH + 0}px)`,
           height: HEADER.H_DESKTOP,
         }),
       }}

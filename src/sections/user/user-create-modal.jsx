@@ -1,7 +1,7 @@
 import axios from "axios";
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 import { toast } from "sonner";
-// eslint-disable-next-line import/no-extraneous-dependencies
+// eslint-disable-next-line import/no-extraneous-dependencies, import/no-unresolved
 import { ThreeDots } from "react-loader-spinner";
 import { useMemo, useState, useEffect, useContext } from "react";
 

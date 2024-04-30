@@ -15,7 +15,7 @@ import Iconify from 'src/components/iconify';
 // ----------------------------------------------------------------------
 
 const HEADER_MOBILE = 64;
-const HEADER_DESKTOP = 92;
+const HEADER_DESKTOP = 70;
 
 const StyledSearchbar = styled('div')(({ theme }) => ({
   ...bgBlur({
@@ -70,7 +70,7 @@ export default function Searchbar() {
                 <InputAdornment position="start">
                   <Iconify
                     icon="eva:search-fill"
-                    sx={{ color: 'text.disabled', width: 20, height: 20 }}
+                    sx={{ color: 'text.disabled', width: 20, height: HEADER_DESKTOP }}
                   />
                 </InputAdornment>
               }

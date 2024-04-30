@@ -52,10 +52,12 @@ export default function AppView() {
 
   return (
     <Container maxWidth="xl">
-      <Typography variant="h4" sx={{ mb: 5 }}>
-        Hola de nuevo 👋
+      <Typography variant="h4" sx={{ mb: 1 }}>
+        Bienvenido al Dashboard!
       </Typography>
-
+      <Typography variant="h6" sx={{ mb: 5, color: "#555", fontWeight: 400 }}>
+        Technodevs.
+      </Typography>
       <Grid container spacing={3}>
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary

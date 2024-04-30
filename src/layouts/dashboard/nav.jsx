@@ -4,8 +4,8 @@ import { useEffect, useContext } from 'react';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Drawer from '@mui/material/Drawer';
-import Button from '@mui/material/Button';
 import Avatar from '@mui/material/Avatar';
+import Divider from '@mui/material/Divider';
 import { alpha } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -43,22 +43,23 @@ export default function Nav({ openNav, onCloseNav }) {
   const renderAccount = (
     <Box
       sx={{
-        my: 3,
+        my: 5,
         mx: 2.5,
-        py: 2,
+        py: 1.5,
         px: 2.5,
         display: 'flex',
         borderRadius: 1.5,
         alignItems: 'center',
-        bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
+        bgcolor: (theme) => alpha(theme.palette.primary.light, 0.2),
+
       }}
     >
       <Avatar src={URL_AVATAR(infoUser?.userInfo?.userName)} alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{infoUser?.userInfo?.userName}</Typography>
+        <Typography variant="subtitle2" sx={{ color: (theme) => alpha(theme.palette.tdPrimary[100], 1) }}>{infoUser?.userInfo?.userName}</Typography>
 
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+        <Typography variant="body2" sx={{ color: (theme) => alpha(theme.palette.tdPrimary[100], 1) }}>
           {account.role}
         </Typography>
       </Box>
@@ -66,40 +67,25 @@ export default function Nav({ openNav, onCloseNav }) {
   );
 
   const renderMenu = (
-    <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
+    <>
+      <Stack component="nav" spacing={0.5} sx={{ px: 2, mt: 0 }}>
       {navConfig.map((item) => (
         <NavItem key={item.title} item={item} />
       ))}
     </Stack>
+      <Divider sx={{my: 2}} variant="middle"/>
+      <Stack component="nav" spacing={0.5} sx={{ px: 2, mt: 0 }}>
+      {navConfig.map((item) => (
+        <NavItem key={item.title} item={item} />
+      ))}
+      </Stack>
+    </>
   );
 
   const renderUpgrade = (
-    <Box sx={{ px: 2.5, pb: 3, mt: 10 }}>
-      <Stack alignItems="center" spacing={3} sx={{ pt: 5, borderRadius: 2, position: 'relative' }}>
-        <Box
-          component="img"
-          src="/assets/illustrations/question.png"
-          sx={{ width: 60, position: 'absolute', top: -50 }}
-        />
-
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h6">Si tienes dudas</Typography>
-
-          <Typography variant="body2" sx={{ color: 'text.secondary', mt: 1 }}>
-            Contáctanos
-          </Typography>
-        </Box>
-
-        <Button
-          href="https://material-ui.com/store/items/minimal-dashboard/"
-          target="_blank"
-          variant="contained"
-          color="inherit"
-        >
-          Asistencia
-        </Button>
-      </Stack>
-    </Box>
+    <div className='absolute bottom-[-120px] left-[-120px] w-[400px] opacity-20'>
+      <img src="/assets/illustrations/TechnodevsBL.png" alt="" className='w-full' />
+    </div >
   );
 
   const renderContent = (
@@ -113,7 +99,7 @@ export default function Nav({ openNav, onCloseNav }) {
         },
       }}
     >
-      <Logo sx={{ mt: 3, ml: 4 }} />
+      <Logo sx={{ mt: 3, ml: 4, borderRadius: "100%", border: "2px solid #444" }} />
 
       {renderAccount}
 
@@ -130,6 +116,7 @@ export default function Nav({ openNav, onCloseNav }) {
       sx={{
         flexShrink: { lg: 0 },
         width: { lg: NAV.WIDTH },
+        bgcolor: (theme) => alpha(theme.palette.tdPrimary[950], 1),
       }}
     >
       {upLg ? (
@@ -184,11 +171,11 @@ function NavItem({ item }) {
         textTransform: 'capitalize',
         fontWeight: 'fontWeightMedium',
         ...(active && {
-          color: 'primary.main',
-          fontWeight: 'fontWeightSemiBold',
-          bgcolor: (theme) => alpha(theme.palette.primary.main, 0.08),
+          color: 'text.secondary',
+          fontWeight: 'fontWeightLigth',
+          bgcolor: (theme) => alpha(theme.palette.primary.light, 0.2),
           '&:hover': {
-            bgcolor: (theme) => alpha(theme.palette.primary.main, 0.16),
+            bgcolor: (theme) => alpha(theme.palette.primary.light, 0.16),
           },
         }),
       }}
