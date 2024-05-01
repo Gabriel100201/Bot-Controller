@@ -6,7 +6,7 @@ const icon = (name) => (
   <SvgColor src={`/assets/icons/navbar/${name}.svg`} sx={{ width: 1, height: 1 }} />
 );
 
-const navConfig = [
+export const navConfig = [
   {
     title: 'dashboard',
     path: '/',
@@ -16,12 +16,23 @@ const navConfig = [
     title: 'user',
     path: '/user',
     icon: icon('ic_user'),
-  },
-  {
-    title: 'products',
-    path: '/products',
-    icon: icon('ic_cart'),
-  },
+  }
 ];
 
-export default navConfig;
+export const contactConfig = [
+  {
+    title: 'account',
+    path: 'https://google.com',
+    icon: icon('ic_account'),
+  },
+  {
+    title: 'payments',
+    path: 'https://google.com',
+    icon: icon('ic_payments'),
+  },
+  {
+    title: 'contact',
+    path: 'https://google.com',
+    icon: icon('ic_contact'),
+  },
+]

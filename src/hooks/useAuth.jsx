@@ -7,7 +7,7 @@ import { LoginContext } from 'src/context/LoginContext';
 
 
 const useAuth = () => {
-  const { setLogged, infoUser, /* isLogged, */ setUnLogged } = useContext(LoginContext);
+  const { setLogged, infoUser, setUnLogged } = useContext(LoginContext);
   const navigate = useNavigate()
 
   const validateToken = async () => {

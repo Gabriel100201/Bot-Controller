@@ -29,20 +29,12 @@ export default function AppView() {
   const [measures, setMeasures] = useState({})
 
   useEffect(() => {
-    if (measures) {
-      const a = measures.measueresPerDay?.map((measure) => measure.countClients)
-      console.log(a)
-    }
-  }, [measures, setMeasures])
-
-  useEffect(() => {
     axios.post(`${URL_API()}/getMeasures`, null, {
       headers: {
         Authorization: `${infoUser.token}`,
       },
     })
       .then((res) => {
-        console.log(res.data)
         setMeasures(prevState => ({
           ...prevState,
           ...res.data

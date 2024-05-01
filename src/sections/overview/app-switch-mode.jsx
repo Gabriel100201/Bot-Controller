@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useMemo, useState, useEffect, useContext } from "react"
+import { useState, useEffect, useContext } from "react"
 
 import { Switch } from "@mui/material"
 
@@ -15,24 +15,27 @@ export const SwitchMode = ({ sx }) => {
   const { infoUser } = useContext(LoginContext)
   const [, setContainerId] = useState(null)
 
-  const config = useMemo(() => ({
-    headers: {
-      'Authorization': `${infoUser.token}`
-    }
-  }), [infoUser.token]);
-
   useEffect(() => {
-    axios.post(`${URL_API()}/containers/getInfo`, null, config)
+    if (!infoUser.token) return
+    axios.post(`${URL_API()}/containers/getInfo`, null, {
+      headers: {
+        'Authorization': `${infoUser.token}`
+      }
+    })
       .then((res) => setOnline(res.data))
       .catch((err) => console.log(err))
-  }, [config])
+  }, [infoUser])
 
 
   const hanldeOnline = async () => {
     setLoading(true)
     const route = isOnline ? `${URL_API()}/containers/stop` : `${URL_API()}/containers/start`;
 
-      axios.post(route, null, config)
+    axios.post(route, null, {
+      headers: {
+        'Authorization': `${infoUser.token}`
+      }
+    })
         .then((res) => {
           setContainerId(res.data.containerId)
           setOnline(!isOnline)

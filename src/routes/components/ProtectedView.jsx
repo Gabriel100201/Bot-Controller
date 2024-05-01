@@ -13,7 +13,7 @@ export const ProtectedView = ({ children }) => {
   const location = useLocation();
 
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(true);
+  const [, setIsLoading] = useState(true);
 
   useEffect(() => {
     const checkToken = async () => {
@@ -27,10 +27,6 @@ export const ProtectedView = ({ children }) => {
     checkToken();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.pathname]);
-
-  if (isLoading) {
-    return <div>Pato</div>;
-  }
 
   return <div>{children}</div>;
 };
