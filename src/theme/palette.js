@@ -31,6 +31,21 @@ export const tdPrimary = {
   950: '#2e0e4d',
 }
 
+export const tdSecondary = {
+  50: '#fdffe4',
+  100: '#f8ffc6',
+  200: '#efff93',
+  300: '#dfff54',
+  400: '#cdfa21',
+  500: '#bef402',
+  600: '#87b400',
+  700: '#668803',
+  800: '#516b09',
+  900: '#445a0d',
+  950: '#233300',
+}
+
+
 export const primary = {
   lighter: '#faf6fe',
   light: '#f2eafd',
@@ -101,6 +116,7 @@ export const action = {
 };
 
 const base = {
+  tdSecondary,
   tdPrimary,
   primary,
   secondary,

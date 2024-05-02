@@ -144,7 +144,7 @@ export default function UserPage() {
   const notFound = !dataFiltered.length && !!filterName;
 
   return (
-    <Container>
+    <Container className='pt-5'>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Usuarios</Typography>
 

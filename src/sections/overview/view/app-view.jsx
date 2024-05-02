@@ -1,32 +1,34 @@
+import axios from 'axios';
 import { faker } from '@faker-js/faker';
+import { useState, useEffect, useContext } from 'react';
 
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Unstable_Grid2';
+/* import { useTheme } from '@mui/material/styles'; */
 import Typography from '@mui/material/Typography';
-
-/* import Iconify from 'src/components/iconify/iconify'; */
-
-import axios from 'axios';
-/* import AppNewsUpdate from '../app-news-update'; */
-import { useState, useEffect, useContext } from 'react';
 
 import { URL_API } from 'src/config/URL_API';
 import { LoginContext } from 'src/context/LoginContext';
 
+import Iconify from 'src/components/iconify/iconify';
+
+import AppTask from '../app-tasks'
+import AppNewsUpdate from '../app-news-update';
 import { SwitchMode } from '../app-switch-mode';
 import AppOrderTimeline from '../app-order-timeline';
 import AppWebsiteVisits from '../app-website-visits';
 import AppWidgetSummary from '../app-widget-summary';
-/* import AppCurrentVisits from '../app-current-visits';
+import AppCurrentVisits from '../app-current-visits';
 import AppTrafficBySite from '../app-traffic-by-site';
 import AppCurrentSubject from '../app-current-subject';
-import AppConversionRates from '../app-conversion-rates'; */
+import AppConversionRates from '../app-conversion-rates';
 
 // ----------------------------------------------------------------------
 
 export default function AppView() {
   const { infoUser } = useContext(LoginContext)
   const [measures, setMeasures] = useState({})
+/*   const theme = useTheme(); */
 
   useEffect(() => {
     axios.post(`${URL_API()}/getMeasures`, null, {
@@ -43,7 +45,7 @@ export default function AppView() {
   }, [infoUser])
 
   return (
-    <Container maxWidth="xl">
+    <Container maxWidth="xl" className='pt-5'>
       <Typography variant="h4" sx={{ mb: 1 }}>
         Bienvenido al Dashboard!
       </Typography>
@@ -54,12 +56,12 @@ export default function AppView() {
         <Grid xs={12} sm={6} md={3}>
           <AppWidgetSummary
             sx={{
-              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)'
+              boxShadow: '6px 6px 10px rgba(0, 0, 0, 0.1)',
             }}
             title="Interacciones"
             total={measures.global?.countMessages}
             color="success"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_bag.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.svg" />}
           />
         </Grid>
 
@@ -71,7 +73,7 @@ export default function AppView() {
             title="Clientes"
             total={measures.global?.countClients}
             color="info"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_users.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_social.svg" />}
           />
         </Grid>
 
@@ -83,7 +85,7 @@ export default function AppView() {
             title="Comunicados"
             total={measures.global?.countConnecteds}
             color="warning"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_buy.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_check.svg" />}
           />
         </Grid>
 
@@ -96,7 +98,7 @@ export default function AppView() {
             isMoneyValue
             total={measures.global?.countCosts}
             color="error"
-            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_message.png" />}
+            icon={<img alt="icon" src="/assets/icons/glass/ic_glass_dolar.svg" />}
           />
         </Grid>
 
@@ -160,7 +162,7 @@ export default function AppView() {
           }} />
         </Grid>
         
-        {/* <Grid xs={12} md={6} lg={4}>
+        <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
             title="Current Visits"
             chart={{
@@ -172,9 +174,9 @@ export default function AppView() {
               ],
             }}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={4}>
+        <Grid xs={12} md={6} lg={4}>
           <AppCurrentVisits
             title="Current Visits"
             chart={{
@@ -275,10 +277,10 @@ export default function AppView() {
               },
             ]}
           />
-        </Grid> */}
+        </Grid>
 
-        {/* <Grid xs={12} md={6} lg={8}>
-          <AppTasks
+        <Grid xs={12} md={6} lg={8}>
+          <AppTask
             title="Tasks"
             list={[
               { id: '1', name: 'Create FireStone Logo' },
@@ -288,7 +290,7 @@ export default function AppView() {
               { id: '5', name: 'Sprint Showcase' },
             ]}
           />
-        </Grid> */}
+        </Grid>
       </Grid>
     </Container>
   );
